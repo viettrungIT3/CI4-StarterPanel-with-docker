@@ -1,38 +1,62 @@
-# CodeIgniter 4 Admin Panel Starter
+# CodeIgniter4-Docker
 
-## Installation & updates
+## Install project
 
-`git clone` or download this source code then run `composer update` whenever there is a new release of the framework.
+1. Download the Docker
+2. Copy and rename file `env` to `.env` 
+3. Setup file `.env` 
+4. Download project directory and rename to `src`.
+5. Start up your application by running:
 
-## Setup
+```sh
+# with no file .env
+docker compose up -d
+```
 
-- Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
-- Run `php spark db:create` to create a new database schema.
-- Run `php spark migrate` to running database migration
-- Run `php spark db:seed users` to seeding default database user
-- Run `php spark key:generate` to create encrypter key
-- Run `php spark serve` to launching the CodeIgniter PHP-Development Server
+```sh
+# with file .env
+docker compose env-file .env up -d
+```
 
-## Server Requirements
+6. Execute a command in a running container
+```sh
+docker exec -it ... bash
+```
 
-PHP version 8.0 is required, with the following extensions installed:
+  - Install or update source (/var/www/html)
+```sh
+# Install 
+composer install --no-dev
+```
+```sh
+# Or update source
+composer update
+```
+
+  - Import sql
+```sh
+mysql -u username -p database_name < file.sql
+```
+
+## Information 
+### Server 
+
+The version being used is PHP 7.4 (recommended, depending on your needs, you should choose larger versions) 
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
+> - The end of life date for PHP 8.1 will be December 31, 2025.
+
+And requires installation of the following extensions:
 
 - [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
 Additionally, make sure that the following extensions are enabled in your PHP:
 
 - json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
-## Features
-
-Features on this project:
-
-- Authentication
-- Authorization
-- User Registration
-- Menu Management with auto create controller and view file
-
+### Database

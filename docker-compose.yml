@@ -1,0 +1,49 @@
+version: '3'
+services:
+    ci4-services:
+        build:
+            context: .
+            dockerfile: docker/apache/Dockerfile
+            args:
+                uid: ${UID}
+        environment:
+            - APACHE_RUN_USER=#${UID}
+            - APACHE_RUN_GROUP=#${UID}
+        restart: unless-stopped
+        volumes:
+            - ./src:/var/www/html
+            - ./apache_log:/var/log/apache2
+            - ./container-init.sh:/usr/local/bin/container-init.sh
+        ports:
+            - ${SERVICE_PORT}:80
+        depends_on:
+            - ci4-db
+        links:
+            - ci4-db
+        networks:
+            ci4:
+                aliases:
+                    - ci4.localhost.com
+    ci4-db:
+        platform: linux/x86_64
+        build:
+            context: .
+            dockerfile: docker/mysql/Dockerfile
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        restart: unless-stopped
+        volumes:
+            - ./db_data:/var/lib/mysql
+            - ./_db:/backup
+        ports:
+            - ${MYSQL_PORT}:3306
+        networks:
+            ci4:
+                aliases:
+                    - "ci4-db.localhost.com"
+volumes:
+    db_data:
+    src:
+networks:
+    ci4:
