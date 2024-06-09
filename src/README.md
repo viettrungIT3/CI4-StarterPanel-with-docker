@@ -1,24 +1,17 @@
 # CodeIgniter 4 Admin Panel Starter
 
-## Features
+## Installation & updates
 
-Features on this project:
-- Authentication
-- Authorization
-- User Registration
-- Menu Management with auto create controller and view file
+`git clone` or download this source code then run `composer update` whenever there is a new release of the framework.
 
-## Installation
-- `git clone` 
-- `docker composer --env-file .env up -d`
+## Setup
 
-### Setup with `docker exec -it <id ci4-services> bash`
 - Copy `env` to `.env` and tailor for your app, specifically the baseURL and any database settings.
-- Run `composer update` whenever there is a new release of the framework.
 - Run `php spark db:create` to create a new database schema.
 - Run `php spark migrate` to running database migration
-- Run `php spark db:seed Users` to seeding default database user
+- Run `php spark db:seed users` to seeding default database user
 - Run `php spark key:generate` to create encrypter key
+- Run `php spark serve` to launching the CodeIgniter PHP-Development Server
 
 ## Server Requirements
 
@@ -34,4 +27,12 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
 - xml (enabled by default - don't turn it off)
 
+## Features
+
+Features on this project:
+
+- Authentication
+- Authorization
+- User Registration
+- Menu Management with auto create controller and view file
 
